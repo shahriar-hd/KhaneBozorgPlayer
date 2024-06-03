@@ -2,4 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="barColor1">#DC5F00</color>
+    <color name="background1">#373A40</color>
+    <color name="background2">#686D76</color>
+    <color name="background3">#1F2544</color>
+    <color name="text1">#EEEEEE</color>
+    <color name="text2">#EFECEC</color>
+
+
 </resources>

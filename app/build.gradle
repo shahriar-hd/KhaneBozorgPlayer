@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace 'ir.ac.kut.khanebozorgplayer'
-    compileSdk 34
+    compileSdk 26
 
     defaultConfig {
         applicationId "ir.ac.kut.khanebozorgplayer"
         minSdk 24
-        targetSdk 34
+        targetSdk 26
         versionCode 1
         versionName "1.0"
 

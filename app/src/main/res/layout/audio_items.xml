@@ -4,13 +4,13 @@
     android:layout_height="wrap_content"
     android:id="@+id/audio_items"
     android:background="@color/background1"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="3dp"
     >
     <ImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:id="@+id/audio_image"
-        android:background="@drawable/ic_launcher_background"
+        android:src="@mipmap/ic_launcher_round"
         android:padding="5dp"/>
     <TextView
         android:layout_width="wrap_content"

@@ -150,11 +150,43 @@
             android:id="@+id/repeat"
             android:src="@drawable/icon_repeat_off"
             android:layout_centerVertical="true"
-            android:layout_toStrartOf="@+id/play_puase"
+            android:layout_toStartOf="@+id/play_puase"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="32dp"/>
 
+    </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_above="@+id/relative_layout_botton"
+        android:id="@+id/seek_bar_layout"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1:59"
+            android:id="@+id/duration_played"
+            android:textColor="@color/text2"
+            android:layout_marginStart="10dp"
+            android:layout_alignParentStart="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4:00"
+            android:id="@+id/duration"
+            android:textColor="@color/text2"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentEnd="true"/>
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seek_bar"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 
 </RelativeLayout>

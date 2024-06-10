@@ -2,6 +2,10 @@ package ir.ac.kut.khanebozorgplayer;
 
 import static ir.ac.kut.khanebozorgplayer.MainActivity.audioFiles;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -9,14 +13,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.palette.graphics.Palette;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -68,7 +75,6 @@ public class PlayerActivity extends AppCompatActivity {
 
                     int currentPosition = mediaPlayer.getCurrentPosition() / 1000;
                     seekBar.setProgress(currentPosition);
-                    //TODO: set duration
                     duration_played.setText(formattedTime(currentPosition));
                 }
                 handler.postDelayed(this, 1000);
@@ -241,10 +247,46 @@ public class PlayerActivity extends AppCompatActivity {
         int durationTotal = Integer.parseInt(listSongs.get(position).getDuration());
         duration_total.setText(formattedTime(durationTotal / 1000));
         byte[] art = retriever.getEmbeddedPicture();
+        Bitmap bitmap;
         if (art != null) {
             Glide.with(this).asBitmap().load(art).into(cover_art);
+            bitmap = BitmapFactory.decodeByteArray(art, 0, art.length);
+            Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+                @Override
+                public void onGenerated(@Nullable Palette palette) {
+                    Palette.Swatch swatch = palette.getDominantSwatch();
+                    if (swatch != null) {
+                        ImageView gradient = findViewById(R.id.image_view_gredient);
+                        RelativeLayout relativeLayout = findViewById(R.id.player_container);
+                        gradient.setBackgroundResource(R.drawable.gredient_background);
+                        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, new int[]{swatch.getRgb(), 0x00000000});
+                        gradient.setBackground(gradientDrawable);
+                        GradientDrawable gradientDrawableBackGround = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, new int[]{swatch.getRgb(), swatch.getRgb()});
+                        relativeLayout.setBackground(gradientDrawableBackGround);
+                        song_name.setTextColor(swatch.getBodyTextColor());
+                        artist_name.setTextColor(swatch.getTitleTextColor());
+                    }
+                    else {
+                        ImageView gradient = findViewById(R.id.image_view_gredient);
+                        RelativeLayout relativeLayout = findViewById(R.id.player_container);
+                        gradient.setBackgroundResource(R.drawable.gredient_background);
+                        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, new int[]{0xff000000, 0x00000000});
+                        gradient.setBackground(gradientDrawable);
+                        GradientDrawable gradientDrawableBackGround = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, new int[]{0xff000000, 0xff000000});
+                        relativeLayout.setBackground(gradientDrawableBackGround);
+                        song_name.setTextColor(Color.WHITE);
+                        artist_name.setTextColor(Color.GRAY);
+                    }
+                }
+            });
             } else {
             Glide.with(this).load(R.drawable.defualt).into(cover_art);
+            ImageView gradient = findViewById(R.id.image_view_gredient);
+            RelativeLayout relativeLayout = findViewById(R.id.player_container);
+            gradient.setBackgroundResource(R.drawable.gredient_background);
+            relativeLayout.setBackgroundColor(getColor(R.color.background1));
+            song_name.setTextColor(getColor(R.color.text2));
+            artist_name.setTextColor(getColor(R.color.text3));
         }
         song_name.setText(listSongs.get(position).getTitle());
         artist_name.setText(listSongs.get(position).getArtist());

@@ -1,6 +1,8 @@
 package ir.ac.kut.khanebozorgplayer;
 
 import static ir.ac.kut.khanebozorgplayer.MainActivity.audioFiles;
+import static ir.ac.kut.khanebozorgplayer.MainActivity.repat_bool;
+import static ir.ac.kut.khanebozorgplayer.MainActivity.shuffle_bool;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -80,6 +82,30 @@ public class PlayerActivity extends AppCompatActivity {
                 handler.postDelayed(this, 1000);
             }
         });
+        shuffle_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (shuffle_bool) {
+                    shuffle_bool = false;
+                    shuffle_button.setImageResource(R.drawable.icon_shuffle_off);
+                } else {
+                    shuffle_bool = true;
+                    shuffle_button.setImageResource(R.drawable.icon_shuffle);
+                }
+            }
+        });
+        reapeat_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (repat_bool) {
+                    repat_bool = false;
+                    reapeat_button.setImageResource(R.drawable.icon_repeat_off);
+                } else {
+                    repat_bool = true;
+                    reapeat_button.setImageResource(R.drawable.icon_repeat);
+                }
+            }
+        });
     }
 
 
@@ -112,10 +138,14 @@ public class PlayerActivity extends AppCompatActivity {
             mediaPlayer.stop();
             mediaPlayer.release();
         }
-        if (position == listSongs.size() - 1) {
-            position = 0;
-        } else {
-            position++;
+        if (shuffle_bool && !repat_bool) {
+            position = (int) (Math.random() * listSongs.size());
+        } else if (!shuffle_bool && !repat_bool) {
+            if (position == listSongs.size() - 1) {
+                position = 0;
+            } else {
+                position++;
+            }
         }
         uri = Uri.parse(listSongs.get(position).getPath());
         mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);
@@ -146,10 +176,14 @@ public class PlayerActivity extends AppCompatActivity {
             mediaPlayer.stop();
             mediaPlayer.release();
         }
-        if (position == 0) {
-            position = listSongs.size() - 1;
-        } else {
-            position--;
+        if (shuffle_bool && !repat_bool) {
+            position = (int) (Math.random() * listSongs.size());
+        } else if (!shuffle_bool && !repat_bool) {
+            if (position == 0) {
+                position = listSongs.size() - 1;
+            } else {
+                position--;
+            }
         }
         uri = Uri.parse(listSongs.get(position).getPath());
         mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);

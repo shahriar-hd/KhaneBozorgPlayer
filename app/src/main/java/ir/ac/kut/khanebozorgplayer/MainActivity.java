@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE = 1;
     static ArrayList<AudioFiles> audioFiles;
+    static boolean shuffle_bool = false, repat_bool = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

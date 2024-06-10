@@ -119,7 +119,8 @@ public class MainActivity extends AppCompatActivity {
             MediaStore.Audio.Media.ARTIST,
             MediaStore.Audio.Media.DURATION,
             MediaStore.Audio.Media.ALBUM,
-            MediaStore.Audio.Media.DATA};
+            MediaStore.Audio.Media.DATA,
+            MediaStore.Audio.Media._ID};
         Cursor cursor = context.getContentResolver().query(uri, projection, null, null,null);
         if (cursor != null){
             while (cursor.moveToNext()){
@@ -128,8 +129,8 @@ public class MainActivity extends AppCompatActivity {
                 String duration = cursor.getString(2);
                 String album = cursor.getString(3);
                 String path = cursor.getString(4);
-
-                AudioFiles audioFiles = new AudioFiles(path, title, artist, album, duration);
+                String id = cursor.getString(5);
+                AudioFiles audioFiles = new AudioFiles(path, title, artist, album, duration, id);
                 Log.e("Path : " + path, "Album : " + album);
                 tempAudioList.add(audioFiles);
             }

@@ -17,9 +17,19 @@
         android:layout_height="wrap_content"
         android:text="File Name"
         android:layout_toEndOf="@+id/audio_image"
+        android:layout_toStartOf="@+id/menu_more"
         android:layout_marginStart="10dp"
         android:layout_centerVertical="true"
         android:textColor="@color/text1"
         android:id="@+id/audio_filesname"/>
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/menu_more"
+        android:src="@drawable/icon_more"
+        android:padding="5dp"
+        android:layout_alignParentRight="true"/>
+
 
 </RelativeLayout>

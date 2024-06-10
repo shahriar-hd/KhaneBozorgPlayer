@@ -1,20 +1,27 @@
 package ir.ac.kut.khanebozorgplayer;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -58,6 +65,44 @@ public class AudioAdapter extends RecyclerView.Adapter<AudioAdapter.MyViewHolder
                 aContext.startActivity(intent);
             }
         });
+        holder.menu_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(aContext, v);
+                popupMenu.getMenuInflater().inflate(R.menu.popup, popupMenu.getMenu());
+                popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            //TODO Fix this shit...
+                            /*case R.id.delete:
+                                deleteFile(position, v);
+                                break;*/
+                            default:
+                                break;
+                        }
+                        return false;
+                    }
+                });
+            }
+        });
+    }
+
+    private void deleteFile(int position, View v) {
+        Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, Long.parseLong(aFiles.get(position).getID()));
+        File file = new File(aFiles.get(position).getPath());
+        boolean deleted = file.delete();
+        if (deleted) {
+            aFiles.remove(position);
+            aContext.getContentResolver().delete(contentUri, null, null);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, aFiles.size());
+            Snackbar.make(v, "Item Delete Was Successful", Snackbar.LENGTH_LONG).show();
+        }
+        else {
+            Snackbar.make(v, "Item Delete Was Not Successful", Snackbar.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -69,12 +114,13 @@ public class AudioAdapter extends RecyclerView.Adapter<AudioAdapter.MyViewHolder
 
 
         TextView file_name;
-        ImageView album_art;
+        ImageView album_art, menu_more;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             file_name = itemView.findViewById(R.id.audio_filesname);
             album_art = itemView.findViewById(R.id.audio_image);
+            menu_more = itemView.findViewById(R.id.menu_more);
         }
     }
 

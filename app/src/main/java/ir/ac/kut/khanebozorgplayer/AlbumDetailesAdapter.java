@@ -18,11 +18,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyHolder> {
+public class AlbumDetailesAdapter extends RecyclerView.Adapter<AlbumDetailesAdapter.MyHolder> {
     private Context aContext;
     private ArrayList<AudioFiles> albumList;
     View view;
-    public AlbumAdapter(Context aContext, ArrayList<AudioFiles> albumList){
+    public AlbumDetailesAdapter(Context aContext, ArrayList<AudioFiles> albumList){
         this.aContext = aContext;
         this.albumList = albumList;
     }
@@ -30,13 +30,13 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyHolder> {
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(aContext).inflate(R.layout.album_items, parent, false);
+        view = LayoutInflater.from(aContext).inflate(R.layout.audio_items, parent, false);
         return new MyHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
-        holder.albumName.setText(albumList.get(position).getAlbum());
+        holder.albumName.setText(albumList.get(position).getTitle());
         byte[] image = new byte[0];
         try {
             image = getAlbumArt(albumList.get(position).getPath());
@@ -50,15 +50,6 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyHolder> {
             Glide.with(aContext).load(R.drawable.defualt).into(holder.albumImage);
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(aContext, AlbumDetails.class);
-                intent.putExtra("albumName", albumList.get(position).getAlbum());
-                intent.putExtra("albumPath", albumList.get(position).getPath());
-                aContext.startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -71,10 +62,11 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyHolder> {
         ImageView albumImage;
         TextView albumName;
 
+
         public MyHolder(@NonNull View itemview){
             super(Objects.requireNonNull(itemview));
             albumImage = itemview.findViewById(R.id.album_image);
-            albumName = itemview.findViewById(R.id.album_name);
+            albumName = itemview.findViewById(R.id.audio_filesname);
         }
     }
 

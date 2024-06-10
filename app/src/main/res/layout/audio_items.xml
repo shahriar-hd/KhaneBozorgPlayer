@@ -2,16 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/audio_items"
     android:background="@color/background1"
-    android:layout_marginTop="3dp"
-    >
-    <ImageView
+    android:layout_marginTop="3dp">
+    <com.google.android.material.imageview.ShapeableImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:id="@+id/audio_image"
         android:src="@mipmap/ic_launcher_round"
-        android:padding="5dp" />
+        android:padding="5dp"
+        app:shapeAppearanceOverlay="@style/RoundImageView"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

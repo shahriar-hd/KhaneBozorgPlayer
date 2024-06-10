@@ -4,9 +4,11 @@ import static ir.ac.kut.khanebozorgplayer.MainActivity.audioFiles;
 import static ir.ac.kut.khanebozorgplayer.MainActivity.repat_bool;
 import static ir.ac.kut.khanebozorgplayer.MainActivity.shuffle_bool;
 
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -32,6 +35,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
+
+//TODO : Menu in player activity, back button action, delete in more option menu.
 public class PlayerActivity extends AppCompatActivity {
 
     TextView song_name, artist_name, duration_played, duration_total;
@@ -282,6 +287,8 @@ public class PlayerActivity extends AppCompatActivity {
         duration_total.setText(formattedTime(durationTotal / 1000));
         byte[] art = retriever.getEmbeddedPicture();
         Bitmap bitmap;
+
+        RelativeLayout relativeLayout2 = findViewById(R.id.relative_layout_botton);
         if (art != null) {
             Glide.with(this).asBitmap().load(art).into(cover_art);
             bitmap = BitmapFactory.decodeByteArray(art, 0, art.length);
@@ -290,37 +297,47 @@ public class PlayerActivity extends AppCompatActivity {
                 public void onGenerated(@Nullable Palette palette) {
                     Palette.Swatch swatch = palette.getDominantSwatch();
                     if (swatch != null) {
-                        ImageView gradient = findViewById(R.id.image_view_gredient);
+
+                        // TODO : change background color of shuffle and reapet button, change play,next,prev button icon
                         RelativeLayout relativeLayout = findViewById(R.id.player_container);
-                        gradient.setBackgroundResource(R.drawable.gredient_background);
-                        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, new int[]{swatch.getRgb(), 0x00000000});
-                        gradient.setBackground(gradientDrawable);
                         GradientDrawable gradientDrawableBackGround = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, new int[]{swatch.getRgb(), swatch.getRgb()});
                         relativeLayout.setBackground(gradientDrawableBackGround);
                         song_name.setTextColor(swatch.getBodyTextColor());
                         artist_name.setTextColor(swatch.getTitleTextColor());
+                        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, new int[]{swatch.getBodyTextColor(), 0x00000000});
+                        relativeLayout2.setBackgroundDrawable(gradientDrawable);
+                        ColorStateList colorStateList = ColorStateList.valueOf(swatch.getRgb());
+                        play_button.setBackgroundTintList(colorStateList);
+                        next_botton.setBackgroundTintList(colorStateList);
+                        previos_button.setBackgroundTintList(colorStateList);
                     }
                     else {
-                        ImageView gradient = findViewById(R.id.image_view_gredient);
                         RelativeLayout relativeLayout = findViewById(R.id.player_container);
-                        gradient.setBackgroundResource(R.drawable.gredient_background);
-                        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, new int[]{0xff000000, 0x00000000});
-                        gradient.setBackground(gradientDrawable);
                         GradientDrawable gradientDrawableBackGround = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, new int[]{0xff000000, 0xff000000});
                         relativeLayout.setBackground(gradientDrawableBackGround);
-                        song_name.setTextColor(Color.WHITE);
-                        artist_name.setTextColor(Color.GRAY);
+                        song_name.setTextColor(getColor(R.color.text2));
+                        artist_name.setTextColor(getColor(R.color.text3));
+                        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, new int[]{swatch.getBodyTextColor(), 0x00000000});
+                        relativeLayout2.setBackgroundDrawable(gradientDrawable);
+                        ColorStateList colorStateList = ColorStateList.valueOf(swatch.getRgb());
+                        play_button.setBackgroundTintList(colorStateList);
+                        next_botton.setBackgroundTintList(colorStateList);
+                        previos_button.setBackgroundTintList(colorStateList);
                     }
                 }
             });
             } else {
             Glide.with(this).load(R.drawable.defualt).into(cover_art);
-            ImageView gradient = findViewById(R.id.image_view_gredient);
             RelativeLayout relativeLayout = findViewById(R.id.player_container);
-            gradient.setBackgroundResource(R.drawable.gredient_background);
             relativeLayout.setBackgroundColor(getColor(R.color.background1));
             song_name.setTextColor(getColor(R.color.text2));
             artist_name.setTextColor(getColor(R.color.text3));
+            GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, new int[]{getColor(R.color.background3), 0x00000000});
+            relativeLayout2.setBackgroundDrawable(gradientDrawable);
+            ColorStateList colorStateList = ColorStateList.valueOf(getColor(R.color.barColor1));
+            play_button.setBackgroundTintList(colorStateList);
+            next_botton.setBackgroundTintList(colorStateList);
+            previos_button.setBackgroundTintList(colorStateList);
         }
         song_name.setText(listSongs.get(position).getTitle());
         artist_name.setText(listSongs.get(position).getArtist());

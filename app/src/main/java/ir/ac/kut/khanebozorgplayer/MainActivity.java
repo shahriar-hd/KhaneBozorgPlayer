@@ -115,7 +115,8 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<AudioFiles> getAllAudio(Context context) {
         ArrayList<String> duplicate = new ArrayList<>();
         ArrayList<AudioFiles> tempAudioList = new ArrayList<>();
-        Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        //access only music folder
+        Uri uri = MediaStore.Audio.Media.INTERNAL_CONTENT_URI;
         String[] projection = {
             MediaStore.Audio.Media.TITLE,
             MediaStore.Audio.Media.ARTIST,

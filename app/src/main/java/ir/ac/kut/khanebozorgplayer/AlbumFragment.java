@@ -1,5 +1,6 @@
 package ir.ac.kut.khanebozorgplayer;
 
+import static ir.ac.kut.khanebozorgplayer.MainActivity.albums;
 import static ir.ac.kut.khanebozorgplayer.MainActivity.audioFiles;
 
 import android.os.Bundle;
@@ -34,8 +35,8 @@ public class AlbumFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_album, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        if (!audioFiles.isEmpty()){
-            albumAdapter = new AlbumAdapter(getContext(), audioFiles);
+        if (!albums.isEmpty()){
+            albumAdapter = new AlbumAdapter(getContext(), albums);
             recyclerView.setAdapter(albumAdapter);
             recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         }

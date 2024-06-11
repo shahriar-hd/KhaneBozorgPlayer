@@ -20,7 +20,7 @@ import java.util.Objects;
 
 public class AlbumDetailesAdapter extends RecyclerView.Adapter<AlbumDetailesAdapter.MyHolder> {
     private Context aContext;
-    private ArrayList<AudioFiles> albumList;
+    static ArrayList<AudioFiles> albumList;
     View view;
     public AlbumDetailesAdapter(Context aContext, ArrayList<AudioFiles> albumList){
         this.aContext = aContext;
@@ -42,7 +42,16 @@ public class AlbumDetailesAdapter extends RecyclerView.Adapter<AlbumDetailesAdap
         else {
             Glide.with(aContext).load(R.drawable.defualt).into(holder.albumImage);
         }
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(aContext, PlayerActivity.class);
+                intent.putExtra("sender", "albumDetailes");
+                intent.putExtra("position", position);
+                //intent.putExtra("albumList", albumList);
+                aContext.startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Khane Bozorg Player</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="playing_msg">Playing...</string>
+    <string name="paused_msg">Paused</string>
+    <string name="delete_itm">Delete</string>
+    <string name="albumbar">Album</string>
 </resources>

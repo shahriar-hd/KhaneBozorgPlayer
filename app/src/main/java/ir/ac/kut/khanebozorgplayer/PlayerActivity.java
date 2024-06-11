@@ -39,7 +39,7 @@ import java.util.ArrayList;
 //TODO : Menu in player activity, back button action, delete in more option menu.
 public class PlayerActivity extends AppCompatActivity {
 
-    TextView song_name, artist_name, duration_played, duration_total;
+    TextView song_name, artist_name, duration_played, duration_total, player_bar;
     ImageView cover_art, back_button, shuffle_button, reapeat_button;
     FloatingActionButton play_button, next_botton, previos_button;
     SeekBar seekBar;
@@ -219,10 +219,12 @@ public class PlayerActivity extends AppCompatActivity {
             mediaPlayer.pause();
             seekBar.setMax(mediaPlayer.getDuration() / 1000);
             play_button.setImageResource(R.drawable.icon_play);
+            player_bar.setText(getText(R.string.paused_msg));
         } else {
             play_button.setImageResource(R.drawable.icon_pause);
             mediaPlayer.start();
             seekBar.setMax(mediaPlayer.getDuration() / 1000);
+            player_bar.setText(getText(R.string.playing_msg));
         }
     }
 
@@ -276,6 +278,7 @@ public class PlayerActivity extends AppCompatActivity {
         seekBar = findViewById(R.id.seek_bar);
         duration_played = findViewById(R.id.duration_played);
         duration_total = findViewById(R.id.duration);
+        player_bar = findViewById(R.id.player_bar_notification_title);
 
 
     }
@@ -287,7 +290,6 @@ public class PlayerActivity extends AppCompatActivity {
         duration_total.setText(formattedTime(durationTotal / 1000));
         byte[] art = retriever.getEmbeddedPicture();
         Bitmap bitmap;
-
         RelativeLayout relativeLayout2 = findViewById(R.id.relative_layout_botton);
         if (art != null) {
             Glide.with(this).asBitmap().load(art).into(cover_art);
@@ -341,5 +343,10 @@ public class PlayerActivity extends AppCompatActivity {
         }
         song_name.setText(listSongs.get(position).getTitle());
         artist_name.setText(listSongs.get(position).getArtist());
+        if (mediaPlayer.isPlaying()) {
+            player_bar.setText(getText(R.string.playing_msg));
+        } else {
+            player_bar.setText(getText(R.string.paused_msg));
+        }
     }
 }

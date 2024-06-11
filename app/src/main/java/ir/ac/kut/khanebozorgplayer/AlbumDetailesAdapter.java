@@ -27,17 +27,10 @@ public class AlbumDetailesAdapter extends RecyclerView.Adapter<AlbumDetailesAdap
         this.albumList = albumList;
     }
 
-    @NonNull
-    @Override
-    public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(aContext).inflate(R.layout.audio_items, parent, false);
-        return new MyHolder(view);
-    }
-
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
         holder.albumName.setText(albumList.get(position).getTitle());
-        byte[] image = new byte[0];
+        byte[] image;
         try {
             image = getAlbumArt(albumList.get(position).getPath());
         } catch (IOException e) {
@@ -65,9 +58,16 @@ public class AlbumDetailesAdapter extends RecyclerView.Adapter<AlbumDetailesAdap
 
         public MyHolder(@NonNull View itemview){
             super(Objects.requireNonNull(itemview));
-            albumImage = itemview.findViewById(R.id.album_image);
+            albumImage = itemview.findViewById(R.id.audio_image);
             albumName = itemview.findViewById(R.id.audio_filesname);
+
         }
+    }
+    @NonNull
+    @Override
+    public AlbumDetailesAdapter.MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        view = LayoutInflater.from(aContext).inflate(R.layout.audio_items, parent, false);
+        return new AlbumDetailesAdapter.MyHolder(view);
     }
 
     private byte[] getAlbumArt(String uri) throws IOException {

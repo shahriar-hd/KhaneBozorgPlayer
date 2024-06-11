@@ -8,6 +8,16 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:text="@string/app_name"
+        android:layout_alignParentTop="true"
+        android:textSize="10sp"
+        android:textColor="@color/text1"
+        android:gravity="center"
+        android:background="@color/background1"
+        android:id="@+id/appnamebar"/>
 
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
@@ -16,6 +26,7 @@
         android:id="@+id/tab_layout"
         app:tabIndicatorFullWidth="true"
         app:tabIndicatorGravity="center"
+        android:layout_below="@+id/appnamebar"
         app:tabTextColor="@color/text1"
         app:tabIndicatorHeight="40dp"
         app:tabIndicatorColor="@color/background3"/>

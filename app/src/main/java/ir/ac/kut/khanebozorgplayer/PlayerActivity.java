@@ -1,5 +1,6 @@
 package ir.ac.kut.khanebozorgplayer;
 
+import static ir.ac.kut.khanebozorgplayer.AlbumDetailesAdapter.albumList;
 import static ir.ac.kut.khanebozorgplayer.MainActivity.audioFiles;
 import static ir.ac.kut.khanebozorgplayer.MainActivity.repat_bool;
 import static ir.ac.kut.khanebozorgplayer.MainActivity.shuffle_bool;
@@ -244,7 +245,12 @@ public class PlayerActivity extends AppCompatActivity {
 
     private void getIntentMethod() {
         position = getIntent().getIntExtra("position", -1);
-        listSongs = audioFiles;
+        String sender = getIntent().getStringExtra("sender");
+        if (sender != null && sender.equals("albumDetailes")) {
+            listSongs = albumList;
+        } else {
+            listSongs = audioFiles;
+        }
         if (listSongs != null) {
             play_button.setImageResource(R.drawable.icon_pause);
             uri = Uri.parse(listSongs.get(position).getPath());

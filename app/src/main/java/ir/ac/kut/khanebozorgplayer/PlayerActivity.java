@@ -30,6 +30,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.palette.graphics.Palette;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -44,6 +45,7 @@ public class PlayerActivity extends AppCompatActivity {
     ImageView cover_art, back_button, shuffle_button, reapeat_button;
     FloatingActionButton play_button, next_botton, previos_button;
     SeekBar seekBar;
+    Palette.Swatch swatch;
     int position = -1;
     static ArrayList<AudioFiles> listSongs = new ArrayList<>();
     static Uri uri;
@@ -93,11 +95,15 @@ public class PlayerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (shuffle_bool) {
                     shuffle_bool = false;
-                    shuffle_button.setImageResource(R.drawable.icon_shuffle_off);
+                    if (swatch != null)
+                        shuffle_button.setColorFilter(swatch.getRgb());
+                    else
+                        shuffle_button.setColorFilter(getColor(R.color.grey));
                 } else {
                     shuffle_bool = true;
-                    shuffle_button.setImageResource(R.drawable.icon_shuffle);
+                    shuffle_button.setColorFilter(getColor(R.color.white));
                 }
+                shuffle_button.setImageResource(R.drawable.icon_shuffle);
             }
         });
         reapeat_button.setOnClickListener(new View.OnClickListener() {
@@ -105,11 +111,15 @@ public class PlayerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (repat_bool) {
                     repat_bool = false;
-                    reapeat_button.setImageResource(R.drawable.icon_repeat_off);
+                    if (swatch != null)
+                        reapeat_button.setColorFilter(swatch.getRgb());
+                    else
+                        reapeat_button.setColorFilter(getColor(R.color.grey));
                 } else {
                     repat_bool = true;
-                    reapeat_button.setImageResource(R.drawable.icon_repeat);
+                    reapeat_button.setColorFilter(getColor(R.color.white));
                 }
+                reapeat_button.setImageResource(R.drawable.icon_repeat);
             }
         });
     }
@@ -303,10 +313,9 @@ public class PlayerActivity extends AppCompatActivity {
             Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
                 @Override
                 public void onGenerated(@Nullable Palette palette) {
-                    Palette.Swatch swatch = palette.getDominantSwatch();
+                    swatch = palette.getDominantSwatch();
                     if (swatch != null) {
 
-                        // TODO : change background color of shuffle and reapet button, change play,next,prev button icon
                         RelativeLayout relativeLayout = findViewById(R.id.player_container);
                         GradientDrawable gradientDrawableBackGround = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, new int[]{swatch.getRgb(), swatch.getRgb()});
                         relativeLayout.setBackground(gradientDrawableBackGround);
@@ -332,6 +341,15 @@ public class PlayerActivity extends AppCompatActivity {
                         next_botton.setBackgroundTintList(colorStateList);
                         previos_button.setBackgroundTintList(colorStateList);
                     }
+                    if (shuffle_bool)
+                        shuffle_button.setColorFilter(getColor(R.color.white));
+                    else
+                        shuffle_button.setColorFilter(swatch.getRgb());
+
+                    if (repat_bool)
+                        reapeat_button.setColorFilter(getColor(R.color.white));
+                    else
+                        reapeat_button.setColorFilter(swatch.getRgb());
                 }
             });
             } else {
@@ -346,7 +364,19 @@ public class PlayerActivity extends AppCompatActivity {
             play_button.setBackgroundTintList(colorStateList);
             next_botton.setBackgroundTintList(colorStateList);
             previos_button.setBackgroundTintList(colorStateList);
+            if (shuffle_bool)
+                shuffle_button.setColorFilter(getColor(R.color.white));
+            else
+                shuffle_button.setColorFilter(getColor(R.color.grey));
+
+            if (repat_bool)
+                reapeat_button.setColorFilter(getColor(R.color.white));
+            else
+                reapeat_button.setColorFilter(getColor(R.color.grey));
         }
+
+        shuffle_button.setImageResource(R.drawable.icon_shuffle);
+        reapeat_button.setImageResource(R.drawable.icon_repeat);
         song_name.setText(listSongs.get(position).getTitle());
         artist_name.setText(listSongs.get(position).getArtist());
         if (mediaPlayer.isPlaying()) {

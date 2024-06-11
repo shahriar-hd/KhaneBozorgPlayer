@@ -74,14 +74,10 @@ public class AudioAdapter extends RecyclerView.Adapter<AudioAdapter.MyViewHolder
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            //TODO Fix this shit...
-                            /*case R.id.delete:
-                                deleteFile(position, v);
-                                break;*/
-                            default:
-                                break;
-                        }
+                        if (item.getItemId() == R.id.delete)
+                            deleteFile(position, v);
+                        else
+                            Toast.makeText(aContext, "Nothing Selected", Toast.LENGTH_SHORT).show();
                         return false;
                     }
                 });

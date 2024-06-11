@@ -39,7 +39,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 
-//TODO : Menu in player activity, back button action, delete in more option menu.
 public class PlayerActivity extends AppCompatActivity {
 
     TextView song_name, artist_name, duration_played, duration_total, player_bar;

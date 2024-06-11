@@ -5,6 +5,7 @@ import static ir.ac.kut.khanebozorgplayer.MainActivity.audioFiles;
 import static ir.ac.kut.khanebozorgplayer.MainActivity.repat_bool;
 import static ir.ac.kut.khanebozorgplayer.MainActivity.shuffle_bool;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -42,7 +43,7 @@ import java.util.ArrayList;
 public class PlayerActivity extends AppCompatActivity {
 
     TextView song_name, artist_name, duration_played, duration_total, player_bar;
-    ImageView cover_art, back_button, shuffle_button, reapeat_button;
+    ImageView cover_art, back_button, shuffle_button, reapeat_button, menu_button;
     FloatingActionButton play_button, next_botton, previos_button;
     SeekBar seekBar;
     Palette.Swatch swatch;
@@ -122,6 +123,22 @@ public class PlayerActivity extends AppCompatActivity {
                 reapeat_button.setImageResource(R.drawable.icon_repeat);
             }
         });
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                getApplicationContext().startActivity(intent);
+            }
+        });
+        menu_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AlbumDetails.class);
+                intent.putExtra("albumName", listSongs.get(position).getAlbum());
+                getApplicationContext().startActivity(intent);
+            }
+        });
+
     }
 
 
@@ -288,6 +305,7 @@ public class PlayerActivity extends AppCompatActivity {
         next_botton = findViewById(R.id.next);
         previos_button = findViewById(R.id.previous);
         back_button = findViewById(R.id.back_botton);
+        menu_button = findViewById(R.id.menu_botton);
         shuffle_button = findViewById(R.id.shuffle);
         reapeat_button = findViewById(R.id.repeat);
         play_button = findViewById(R.id.play_puase);

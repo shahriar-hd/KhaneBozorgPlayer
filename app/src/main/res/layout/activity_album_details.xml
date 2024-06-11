@@ -8,13 +8,26 @@
     tools:context=".AlbumDetails"
     android:background="@color/background1">
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/albumbar"
+        android:textSize="25sp"
+        android:textColor="@color/text2"
+        android:gravity="center_horizontal"
+        android:background="@android:color/transparent"
+        android:layout_alignParentTop="true"
+        android:id="@+id/albumname"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="400dp"
+        android:layout_height="400dp"
         android:id="@+id/album_art"
         android:src="@drawable/defualt"
         android:scaleType="centerCrop"
         app:shapeAppearanceOverlay="@style/RoundImageView"
+        android:layout_below="@+id/albumname"
+        android:layout_centerHorizontal="true"
         android:layout_margin="10dp"/>
 
 

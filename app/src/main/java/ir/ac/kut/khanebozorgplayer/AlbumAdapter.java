@@ -37,7 +37,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
         holder.albumName.setText(albumList.get(position).getAlbum());
-        byte[] image = new byte[0];
+        byte[] image;
         try {
             image = getAlbumArt(albumList.get(position).getPath());
         } catch (IOException e) {

@@ -5,6 +5,7 @@ import static ir.ac.kut.khanebozorgplayer.MainActivity.audioFiles;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,11 +20,11 @@ import com.bumptech.glide.Glide;
 import java.io.IOException;
 import java.util.ArrayList;
 
-//TODO this shit is not working. fix it
 public class AlbumDetails extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ImageView albumArt;
+    TextView albumeNameBar;
     String albumName;
     ArrayList<AudioFiles> albumSongs = new ArrayList<>();
     AlbumDetailesAdapter albumDetailesAdapter;
@@ -45,24 +46,30 @@ public class AlbumDetails extends AppCompatActivity {
         recyclerView = findViewById(R.id.album_details_recycler_view);
         albumArt = findViewById(R.id.album_art);
         albumName = getIntent().getStringExtra("albumName");
+        albumeNameBar = findViewById(R.id.albumname);
+        albumeNameBar.setText(albumName);
         int j = 0;
         for (int i = 0; i < audioFiles.size(); i++) {
-            if (albumName.equals(audioFiles.get(i).getAlbum())) {
+            if (audioFiles.get(i).getAlbum() == null)
+                i++;
+            else if (albumName.equals(audioFiles.get(i).getAlbum())) {
                 albumSongs.add(j, audioFiles.get(i));
                 j++;
             }
         }
-        byte[] image = new byte[0];
-        try {
-            image = getAlbumArt(albumSongs.get(0).getPath());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        if (image != null) {
-            Glide.with(this).load(image).into(albumArt);
-        }
-        else {
-            Glide.with(this).load(R.drawable.defualt).into(albumArt);
+        if (!albumSongs.isEmpty()) {
+
+            byte[] image;
+            try {
+                image = getAlbumArt(albumSongs.get(0).getPath());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            if (image != null) {
+                Glide.with(this).load(image).into(albumArt);
+            } else {
+                Glide.with(this).load(R.drawable.defualt).into(albumArt);
+            }
         }
 
     }

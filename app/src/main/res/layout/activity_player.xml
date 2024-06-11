@@ -9,12 +9,24 @@
     android:orientation="vertical"
     tools:context=".PlayerActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/playing_msg"
+        android:textColor="@color/text1"
+        android:gravity="center"
+        android:background="@color/background1"
+        android:textSize="10sp"
+        android:id="@+id/player_bar_notification_title"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
         android:id="@+id/layout_top_botton"
         android:background="@color/background2"
-        android:layout_alignParentTop="true">
+        android:layout_below="@+id/player_bar_notification_title">
 
     <ImageView
         android:layout_width="30dp"
@@ -23,19 +35,6 @@
         android:src="@drawable/icon_chevron_left"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:text="Playing..."
-        android:textColor="@color/text1"
-        android:layout_toStartOf="@+id/menu_botton"
-        android:layout_toEndOf="@+id/back_botton"
-        android:gravity="center_horizontal"
-        android:background="@android:color/transparent"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
 
     <ImageView
         android:layout_width="30dp"

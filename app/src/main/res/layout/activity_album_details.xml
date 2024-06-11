@@ -8,16 +8,39 @@
     tools:context=".AlbumDetails"
     android:background="@color/background1">
 
-    <TextView
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/albumbar"
-        android:textSize="25sp"
-        android:textColor="@color/text2"
-        android:gravity="center_horizontal"
-        android:background="@android:color/transparent"
-        android:layout_alignParentTop="true"
-        android:id="@+id/albumname"/>
+        android:layout_height="50dp"
+        android:id="@+id/bar_album_details"
+        android:background="@color/background2"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/albumbar"
+            android:textSize="25sp"
+            android:textColor="@color/text2"
+            android:gravity="center_horizontal"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@android:color/transparent"
+            android:singleLine="true"
+            android:id="@+id/albumname"/>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/back_botton_album_details"
+            android:src="@drawable/icon_chevron_left"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
 
     <com.google.android.material.imageview.ShapeableImageView
         android:layout_width="400dp"
@@ -26,7 +49,7 @@
         android:src="@drawable/defualt"
         android:scaleType="centerCrop"
         app:shapeAppearanceOverlay="@style/RoundImageView"
-        android:layout_below="@+id/albumname"
+        android:layout_below="@+id/bar_album_details"
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"/>
 

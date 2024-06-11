@@ -2,8 +2,10 @@ package ir.ac.kut.khanebozorgplayer;
 
 import static ir.ac.kut.khanebozorgplayer.MainActivity.audioFiles;
 
+import android.content.Intent;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,7 +25,7 @@ import java.util.ArrayList;
 public class AlbumDetails extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    ImageView albumArt;
+    ImageView albumArt, backButtonAlbumDetails;
     TextView albumeNameBar;
     String albumName;
     ArrayList<AudioFiles> albumSongs = new ArrayList<>();
@@ -48,6 +50,7 @@ public class AlbumDetails extends AppCompatActivity {
         albumName = getIntent().getStringExtra("albumName");
         albumeNameBar = findViewById(R.id.albumname);
         albumeNameBar.setText(albumName);
+        backButtonAlbumDetails = findViewById(R.id.back_botton_album_details);
         int j = 0;
         for (int i = 0; i < audioFiles.size(); i++) {
             if (audioFiles.get(i).getAlbum() == null)
@@ -71,6 +74,13 @@ public class AlbumDetails extends AppCompatActivity {
                 Glide.with(this).load(R.drawable.defualt).into(albumArt);
             }
         }
+        backButtonAlbumDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AlbumDetails.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

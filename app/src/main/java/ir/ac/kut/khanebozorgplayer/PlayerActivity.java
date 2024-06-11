@@ -137,6 +137,22 @@ public class PlayerActivity extends AppCompatActivity {
                 getApplicationContext().startActivity(intent);
             }
         });
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            //TODO : fix this bug, auto play next song not working!
+            public void onCompletion(MediaPlayer mp) {
+                if (mediaPlayer.getCurrentPosition() >= mediaPlayer.getDuration())
+                    if (shuffle_bool && !repat_bool) {
+                        position = (int) (Math.random() * (listSongs.size() - 1));
+                    } else if (!shuffle_bool && !repat_bool) {
+                        if (position == listSongs.size() - 1) {
+                            position = 0;
+                        } else {
+                            position++;
+                        }
+                    }
+            }
+        });
 
     }
 
@@ -171,7 +187,7 @@ public class PlayerActivity extends AppCompatActivity {
             mediaPlayer.release();
         }
         if (shuffle_bool && !repat_bool) {
-            position = (int) (Math.random() * listSongs.size());
+            position = (int) (Math.random() * (listSongs.size() - 1));
         } else if (!shuffle_bool && !repat_bool) {
             if (position == listSongs.size() - 1) {
                 position = 0;

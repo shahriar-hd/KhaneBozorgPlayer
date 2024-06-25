@@ -78,6 +78,7 @@ public class PlayerActivity extends AppCompatActivity {
 
             }
         });
+
         PlayerActivity.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -154,9 +155,14 @@ public class PlayerActivity extends AppCompatActivity {
             }
         });
 
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                nextBottonClick();
+            }
+        });
+
     }
-
-
     @Override
     protected void onResume() {
         playThreadBotton();
@@ -182,7 +188,7 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
     private void nextBottonClick() {
-        if (mediaPlayer.isPlaying()) {
+        if (mediaPlayer.isPlaying() || mediaPlayer.getCurrentPosition() >= mediaPlayer.getDuration()) {
             mediaPlayer.stop();
             mediaPlayer.release();
         }
